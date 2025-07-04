@@ -1,10 +1,17 @@
 import argparse
 
+from . import __version__
+
 
 def hello(args: argparse.Namespace) -> None:
     """Print a friendly greeting."""
     name = args.name
     print(f"Hello, {name}!")
+
+
+def version(args: argparse.Namespace) -> None:
+    """Print package version."""
+    print(__version__)
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -14,6 +21,9 @@ def build_parser() -> argparse.ArgumentParser:
     hello_parser = subparsers.add_parser("hello", help="Say hello")
     hello_parser.add_argument("--name", default="world", help="Name to greet")
     hello_parser.set_defaults(func=hello)
+
+    version_parser = subparsers.add_parser("version", help="Show CLI version")
+    version_parser.set_defaults(func=version)
 
     return parser
 
